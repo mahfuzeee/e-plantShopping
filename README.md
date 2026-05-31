@@ -1,4 +1,4 @@
-# Paradise Nursery - E-Plant Shopping Cart 🌿
+# Paradise Nursery Shopping Application
 
 A modern, interactive React-based e-commerce platform for browsing and purchasing a wide variety of plants. Built with React, Redux Toolkit, and Vite for optimal performance.
 
