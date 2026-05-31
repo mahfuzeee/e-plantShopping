@@ -304,6 +304,7 @@ function ProductList({ onHomeClick }) {
       ...prevState, // Spread the previous state to retain existing entries
       [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
     }));
+    console.log("Added to cart:", addedToCart); // Log the added product for debugging purposes
   };
 
   const calculateTotalQuantity = () => {
@@ -354,14 +355,18 @@ function ProductList({ onHomeClick }) {
                     d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8"
                     fill="none"
                     stroke="#faf9f9"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>{" "}
-                {calculateTotalQuantity()}
-              </h1>
+                {
+                  <span className="cart_quantity_count">
+                    {calculateTotalQuantity()}
+                  </span>
+                }
+              </h1>{" "}
             </a>
           </div>
         </div>
@@ -377,7 +382,16 @@ function ProductList({ onHomeClick }) {
                 {" "}
                 {/* Unique key for each category div */}
                 <h1>
-                  <div>{category.category}</div>{" "}
+                  <div
+                    style={{
+                      textAlign: "center",
+                      margin: "4px 0",
+                      borderBottom: "3px solid grey",
+                      paddingBottom: "8px",
+                    }}
+                  >
+                    {category.category}
+                  </div>{" "}
                   {/* Display the category name */}
                 </h1>
                 <div className="product-list">
@@ -406,10 +420,14 @@ function ProductList({ onHomeClick }) {
                         <div className="product-cost">${plant.cost}</div>{" "}
                         {/* Display plant cost */}
                         <button
-                          className="product-button"
+                          className={`product-button ${addedToCart[plant.name] ? "added-to-cart" : ""}`} // Add 'added' class if the plant is already added to cart
                           onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                          disabled={addedToCart[plant.name]} // Disable button if plant is already added to cart
                         >
-                          Add to Cart
+                          {addedToCart[plant.name]
+                            ? "Added to Cart"
+                            : "Add to Cart"}{" "}
+                          {/* Change button text based on whether the plant is added to cart */}
                         </button>
                       </div>
                     ),

@@ -11,7 +11,7 @@ const CartItem = ({ onContinueShopping }) => {
   const calculateTotalAmount = () => {
     let total = 0;
     cart.forEach((item) => {
-      total += item.cost * item.quantity; // Multiply cost by quantity for each item and add to total
+      total += parseFloat(item.cost.substring(1)) * item.quantity; // Multiply cost by quantity for each item and add to total
     });
     return total.toFixed(2); // Return total amount formatted to 2 decimal places
   };
@@ -33,6 +33,8 @@ const CartItem = ({ onContinueShopping }) => {
       dispatch(
         updateQuantity({ name: item.name, quantity: item.quantity - 1 }),
       );
+    } else {
+      dispatch(removeItem(item.name));
     }
   };
 
