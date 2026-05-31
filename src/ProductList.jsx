@@ -9,8 +9,9 @@ function ProductList({ onHomeClick }) {
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
   const [addedToCart, setAddedToCart] = useState({});
 
-  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+
+  const CartItems = useSelector((state) => state.cart.items);
 
   const plantsArray = [
     {
@@ -305,6 +306,12 @@ function ProductList({ onHomeClick }) {
     }));
   };
 
+  const calculateTotalQuantity = () => {
+    return CartItems
+      ? CartItems.reduce((total, item) => total + item.quantity, 0)
+      : 0;
+  };
+
   return (
     <div>
       <div className="navbar" style={styleObj}>
@@ -352,7 +359,8 @@ function ProductList({ onHomeClick }) {
                     stroke-width="2"
                     id="mainIconPathAttribute"
                   ></path>
-                </svg>
+                </svg>{" "}
+                {calculateTotalQuantity()}
               </h1>
             </a>
           </div>
